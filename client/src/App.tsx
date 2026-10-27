@@ -1,121 +1,144 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from "react";
+import {
+  AudioLines,
+  Home,
+  Search,
+  Heart,
+  Library,
+  Plus,
+  Play,
+  Pause,
+  SkipBack,
+  SkipForward,
+  Shuffle,
+  Repeat,
+  Volume2,
+  MoreHorizontal,
+} from "lucide-react"
+
+type Track = {
+  id: Number,
+  title: string,
+  artist: string,
+  cover: string,
+  category: string
+}
+
+const tracks: Track[] = [
+  {
+    id: 1,
+    title: 'Midnight city',
+    artist: 'suraj chandel',
+    cover: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500',
+    category: 'Electronic',
+  },
+
+  {
+    id: 2,
+    title: 'Parple skies',
+    artist: 'Luna waves',
+    cover: 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=500',
+    category: 'chill',
+  },
+
+  {
+    id: 3,
+    title: 'Lost in Sounds',
+    artist: 'Neon Dreams',
+    cover: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=500',
+    category: 'pop',
+  },
+
+  {
+    id: 4,
+    title: 'After Hours',
+    artist: 'Velvet Echo',
+    cover: 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=500',
+    category: 'ambient',
+  },
+]
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currenttrack, setcurrenttrack] = useState(tracks[0]);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [search, setSearch] = useState('');
+  const [favorties, setfavorties] = useState<number[]>([]);
 
+  const filtertracks = tracks.filter((tracks) =>
+    `${tracks.title} ${tracks.artist} ${tracks.category}`
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  )
+
+  function playtrack(track: Track) {
+    setcurrenttrack(track)
+    setIsPlaying(true)
+  }
+
+  function nextTrack() {
+    const index = tracks.findIndex(
+      (track) => track.id === currenttrack.id
+    )
+    setcurrenttrack(tracks[(index + 1) % tracks.length]),
+      setIsPlaying(true)
+  }
+
+  function priviousTrack() {
+    const index = tracks.findIndex(
+      (track) => track.id === currenttrack.id
+    )
+    setcurrenttrack(
+      tracks[(index - 1 + tracks.length) % tracks.length]
+    )
+    setIsPlaying(true)
+  }
+
+  function toggleFavorite(id: number) {
+    setfavorties((previous) =>
+      previous.includes(id)
+        ? previous.filter((item) => item !== id)
+        : [...previous, id]
+    )
+  }
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
+    <div className="min-h-screen bg-[09090f] text-white">
+      <div className="flex min-h-screen">
+        {/* slider */}
+        <aside className="hidden w-60 shrink-0 border-r border-white/10 bg-[#0d0c15] p-6 md:flex md:flex-col">
+          <div className="mb-10 flex items-center gap-3">
+            <div className="rounded-xl bg-violet-60 p-2">
+              <AudioLines size={25} />
+            </div>
+            <span className="text-xl font-bold tracking-tight">
+              Vibe<span className="text-violet-400">Flow</span>
+            </span>
+          </div>
+          <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-500">
+            Menu
           </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+          <nav className="space-y-2">
+            <button className="flex w-full items-center gap-3 rounded-xl bg-violet-500/15 px-4 py-3 text-left text-violet-300">
+              <Home size={19} />
+              Home
+            </button>
+            <button className="flex w-full items-center gap-3 rounded-xl bg-violet-500/15 px-4 py-3 text-left text-violet-300">
+              <Search size={19} />
+              Discover</button>
+            <button className="flex w-full items-center gap-3 rounded-xl bg-violet-500/15 px-4 py-3 text-left text-violet-300">
+              <Library size={19} />
+              Your Library
+            </button>
+            <button className="flex w-full items-center gap-3 rounded-xl bg-violet-500/15 px-4 py-3 text-left text-violet-300">
+              <Heart size={19} />
+              Favoritesd
+              <span className="ml-auto text-xs">
+                {favorties.length}
+              </span>
+            </button>
+          </nav>
+        </aside>
+      </div>
+    </div>
   )
 }
 
