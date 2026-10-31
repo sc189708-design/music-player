@@ -110,7 +110,7 @@ function App() {
               <AudioLines size={25} />
             </div>
             <span className="text-xl font-bold tracking-tight">
-              Vibe<span className="text-violet-400">Flow</span>
+              On<span className="text-violet-400">Fire</span>
             </span>
           </div>
           <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-500">
@@ -136,7 +136,50 @@ function App() {
               </span>
             </button>
           </nav>
+          <div className="mb-4 mt-10 flex items-center justify-between">
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-500">
+              Playlist
+            </p>
+            <button
+              aria-label="Add playlist"
+              className="text-gray-400 hover:text-white">
+              <Plus size={19} />
+            </button>
+          </div>
+          <div className="space-y-4 text-sm text-gray-400">
+            <p className=" cursor-pointer hover:text-white">
+              Late Night Vibes
+            </p>
+            <p className="cursor-pointer hover:text-white">
+              Foucs Mode
+            </p>
+            <p className="cursor-pointer hover:text-white">
+              Weekend Energy
+            </p>
+          </div>
+
+          <div className="mt-auto rounded-2xl border border-violet-400/20 bg-violet-500/10 p-4">
+          <AudioLines className="mb-3 text-violet-400 " size={24}/>
+          <p className="font-semibold">Your sound. Your world</p>
+          <p className="text-sm mt-2 leading-5 text-gray-500">Discover your favorite track</p>
+          </div>
         </aside>
+        {/* Main content */}
+       <main className="min-w-0 flex-1 px-5 pb-36 pt-6 md:px-10 md:pt-9">
+        <header className="mb-10 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <p className="text-sm text-violet-300">
+              YOUR MUSIC, YOUR MOOD
+            </p>
+            <h1 className="mt-2 text-3xl font-black md:text-4xl">
+              Find your rhythm.
+            </h1>
+            <p className="mt-2 text-sm text-violet-400">
+              A little music can change everything.
+            </p>
+          </div>
+        </header>
+       </main>
       </div>
     </div>
   )
