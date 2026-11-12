@@ -159,27 +159,60 @@ function App() {
           </div>
 
           <div className="mt-auto rounded-2xl border border-violet-400/20 bg-violet-500/10 p-4">
-          <AudioLines className="mb-3 text-violet-400 " size={24}/>
-          <p className="font-semibold">Your sound. Your world</p>
-          <p className="text-sm mt-2 leading-5 text-gray-500">Discover your favorite track</p>
+            <AudioLines className="mb-3 text-violet-400 " size={24} />
+            <p className="font-semibold">Your sound. Your world</p>
+            <p className="text-sm mt-2 leading-5 text-gray-500">Discover your favorite track</p>
           </div>
         </aside>
         {/* Main content */}
-       <main className="min-w-0 flex-1 px-5 pb-36 pt-6 md:px-10 md:pt-9">
-        <header className="mb-10 flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <p className="text-sm text-violet-300">
-              YOUR MUSIC, YOUR MOOD
+        <main className="min-w-0 flex-1 px-5 pb-36 pt-6 md:px-10 md:pt-9">
+          <header className="mb-10 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p className="text-sm text-violet-300">
+                YOUR MUSIC, YOUR MOOD
+              </p>
+              <h1 className="mt-2 text-3xl font-black md:text-4xl">
+                Find your rhythm.
+              </h1>
+              <p className="mt-2 text-sm text-violet-400">
+                A little music can change everything.
+              </p>
+            </div>
+            <div className="flex w-full items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 sm:w-72">
+              <Search size={18} className="shrink-0 text-gray-400" />
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search song or artists..."
+                aria-label="Search song or artists"
+                className="w-full bg-transparent text-sm outline-none placeholder:text-gray-500"
+              />
+            </div>
+          </header>
+
+          {/* Featured section */}
+          <section className=" relative mb-10 overflow-hidden rounded-3xl border border-violet-300/15 bg-linear-to-br from-[#33205d] to-[#1111b] p-6 md:p-9">
+          <div className="relative z-10 max-w-lg">
+            <span className=" rounded-full border border-violet-300/30 bg-violet-300/10 px-3 py-1 text-xs text-violet-200">
+            FEATURED MIX 
+            </span>
+            <h2 className="mt-5 font-bold text-3xl md:text-4xl">
+              Escape the ordinary.
+            </h2>
+            <p className="mt-3 max-w-sm text-sm leading-6 text-gray-300">
+              Discover sounds that much your mood, from 
+              peaceful night to energetic mornings.
             </p>
-            <h1 className="mt-2 text-3xl font-black md:text-4xl">
-              Find your rhythm.
-            </h1>
-            <p className="mt-2 text-sm text-violet-400">
-              A little music can change everything.
-            </p>
+            <button
+            onChange={()=> playtrack(tracks[0])}
+            className="mt-6 flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-black transition hover:bg-violet-180">
+              <Play size={18} fill="currentColor"/>
+              Start listening
+            </button>
           </div>
-        </header>
-       </main>
+          </section>
+        </main>
       </div>
     </div>
   )
