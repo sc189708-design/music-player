@@ -15,6 +15,7 @@ import {
   Volume2,
   MoreHorizontal,
 } from "lucide-react"
+import { article } from "framer-motion/client";
 
 type Track = {
   id: Number,
@@ -193,24 +194,53 @@ function App() {
 
           {/* Featured section */}
           <section className=" relative mb-10 overflow-hidden rounded-3xl border border-violet-300/15 bg-linear-to-br from-[#33205d] to-[#1111b] p-6 md:p-9">
-          <div className="relative z-10 max-w-lg">
-            <span className=" rounded-full border border-violet-300/30 bg-violet-300/10 px-3 py-1 text-xs text-violet-200">
-            FEATURED MIX 
-            </span>
-            <h2 className="mt-5 font-bold text-3xl md:text-4xl">
-              Escape the ordinary.
-            </h2>
-            <p className="mt-3 max-w-sm text-sm leading-6 text-gray-300">
-              Discover sounds that much your mood, from 
-              peaceful night to energetic mornings.
-            </p>
-            <button
-            onChange={()=> playtrack(tracks[0])}
-            className="mt-6 flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-black transition hover:bg-violet-180">
-              <Play size={18} fill="currentColor"/>
-              Start listening
-            </button>
-          </div>
+            <div className="relative z-10 max-w-lg">
+              <span className=" rounded-full border border-violet-300/30 bg-violet-300/10 px-3 py-1 text-xs text-violet-200">
+                FEATURED MIX
+              </span>
+              <h2 className="mt-5 font-bold text-3xl md:text-4xl">
+                Escape the ordinary.
+              </h2>
+              <p className="mt-3 max-w-sm text-sm leading-6 text-gray-300">
+                Discover sounds that much your mood, from
+                peaceful night to energetic mornings.
+              </p>
+              <button
+                onChange={() => playtrack(tracks[0])}
+                className="mt-6 flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-black transition hover:bg-violet-180">
+                <Play size={18} fill="currentColor" />
+                Start listening
+              </button>
+            </div>
+
+            <div className=" pointer-events-none absolute -right-12 -top-20 h-72 w-72 rounded-full bg-violet-500/20 blur-3xl"/>
+          </section>
+
+          {/* song grid */}
+          <section>
+            <div className="mb-5 flex items-end justify-between">
+              <div>
+                <p className="text-sm text-violet-300">MADE FOR YOU</p>
+                <h2 className="mt-1 text-2xl font-bold "> Discober music</h2>
+              </div>
+              <span className="text-sm text-gray-500">
+                {filtertracks.length} tracks
+              </span>
+            </div>
+            {filtertracks.length === 0 ? ( 
+              <div className=" rounded-2xl border border-white/10 p-8 text-center text-gray-500">
+                No tracks found. Try another search.
+              </div>
+            ) : (
+              <div className=" grid grid-cols-2 gap-4 lg:grid-cols-4">
+                {filtertracks.map((track) => (
+                  <article
+                  key={track.id}
+                  className=" group min-w-0 rounded-2xl border border-white/[0.06] bg-white/[0.25] p-3 transition duration-300 hover:-translate-y-1 hover:border-violet-400/30 hover:bg-white/[0.5]  "
+                  ></article>
+                ))}
+              </div>
+            )}
           </section>
         </main>
       </div>
