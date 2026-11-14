@@ -15,7 +15,7 @@ import {
   Volume2,
   MoreHorizontal,
 } from "lucide-react"
-import { article } from "framer-motion/client";
+import { article, track } from "framer-motion/client";
 
 type Track = {
   id: number,
@@ -316,6 +316,79 @@ function App() {
                 {currenttrack.artist}
               </p>
             </div>
+            <button
+              onClick={() => toggleFavorite(currenttrack.id)}
+              aria-label="Toggle current track favorite"
+              className=" hidden text-gray-400 hover:text-pink-700 text-sm">
+              <Heart
+                size={19}
+                fill={
+                  favorties.includes(currenttrack.id)
+                    ? 'currentColor'
+                    : 'none'
+                }
+                className={
+                  favorties.includes(currenttrack.id)
+                    ? 'text-pink-700'
+                    : ''
+                } />
+            </button>
+          </div>
+          <div className="flex flex-1 flex-col items-center gap-2">
+            <div className=" flex items-center gap-4 md:gap-6">
+              <button
+                aria-label="Shuffle"
+                className="hidden text-gray-400 hover:text-violet-300 sm:block"
+              >
+                <Shuffle size={17} />
+              </button>
+              <button
+                onClick={priviousTrack}
+                aria-label="Privious Track"
+                className="text-gray-300 hover:text-white">
+                <SkipBack size={20}
+                  fill="currentColor" />
+              </button>
+              <button
+                onClick={() => setIsPlaying(!isPlaying)}
+                aria-label={isPlaying ? 'Pause' : 'Play'}
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-black transition hover:scale-105">
+                {isPlaying ? (
+                  <Pause size={20}
+                    fill="currentColor" />
+                ) : (
+                  <Play size={20}
+                    fill="currentColor" />
+                )}
+              </button>
+              <button
+                onClick={nextTrack}
+                aria-label="nextTrack"
+                className="text-gray-300 hover:text-white">
+                <SkipForward size={20}
+                  fill="currentColor" />
+              </button>
+              <button
+                aria-label="Repeat"
+                className="hidden text-gray-400 hover:text-violet-300 sm:block">
+                <Repeat size={17} />
+              </button>
+            </div>
+            <div className="flex w-full max-w-md items-center gap-3">
+              <span className="text-[10px] text-gray-500">0:00</span>
+              <div className="h-1 flex-1 overflow-x-hidden rounded-full bg-white/10">
+                <div className="h-full w-0 rounded-full bg-violet-400" />
+              </div>
+              <span className="text[10px] text-gray-300">0:00</span>
+            </div>
+          </div>
+
+          <div className=" hidden flex-1 items-center justify-end gap-3 md:flex">
+            <MoreHorizontal size={20}
+              className=" text-gray-400" />
+            <Volume2 size={19}
+              className=" text-gray-400" />
+            <div className=" h-1 w-20 rounded-full bg-violet-400" />
           </div>
         </div>
       </footer>
