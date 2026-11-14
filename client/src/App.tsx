@@ -18,7 +18,7 @@ import {
 import { article } from "framer-motion/client";
 
 type Track = {
-  id: Number,
+  id: number,
   title: string,
   artist: string,
   cover: string,
@@ -159,7 +159,7 @@ function App() {
             </p>
           </div>
 
-          <div className="mt-auto rounded-2xl border border-violet-400/20 bg-violet-500/10 p-4">
+          <div className="mt-auto mb-17 rounded-2xl border border-violet-400/20 bg-violet-500/10 p-4">
             <AudioLines className="mb-3 text-violet-400 " size={24} />
             <p className="font-semibold">Your sound. Your world</p>
             <p className="text-sm mt-2 leading-5 text-gray-500">Discover your favorite track</p>
@@ -213,7 +213,7 @@ function App() {
               </button>
             </div>
 
-            <div className=" pointer-events-none absolute -right-12 -top-20 h-72 w-72 rounded-full bg-violet-500/20 blur-3xl"/>
+            <div className=" pointer-events-none absolute -right-12 -top-20 h-72 w-72 rounded-full bg-violet-500/20 blur-3xl" />
           </section>
 
           {/* song grid */}
@@ -227,7 +227,7 @@ function App() {
                 {filtertracks.length} tracks
               </span>
             </div>
-            {filtertracks.length === 0 ? ( 
+            {filtertracks.length === 0 ? (
               <div className=" rounded-2xl border border-white/10 p-8 text-center text-gray-500">
                 No tracks found. Try another search.
               </div>
@@ -235,15 +235,90 @@ function App() {
               <div className=" grid grid-cols-2 gap-4 lg:grid-cols-4">
                 {filtertracks.map((track) => (
                   <article
-                  key={track.id}
-                  className=" group min-w-0 rounded-2xl border border-white/[0.06] bg-white/[0.25] p-3 transition duration-300 hover:-translate-y-1 hover:border-violet-400/30 hover:bg-white/[0.5]  "
-                  ></article>
+                    key={track.id}
+                    className=" group min-w-0 rounded-2xl border border-white/6 bg-white/25 p-3 transition duration-300 hover:-translate-y-1 hover:border-violet-400/30 hover:bg-white/50  "
+                  >
+                    <div className=" relative">
+                      <img
+                        src={track.cover}
+                        alt={`${track.title}, artwork`}
+                        loading="lazy"
+                        className=" aspect-square rounded-xl w-full object-cover" />
+
+                      <button
+                        onClick={() => playtrack(track)}
+                        aria-label={`Play${track.title}`}
+                        className=" absolute bottom-3 right-3 flex h-11 w-11 items-center justify-center rounded-full bg-violet-500 text-white shadow-lg transition hover:scale-105 hover:bg-violet-400">
+                        {isPlaying && currenttrack.id === track.id ? (
+                          <Pause size={19} fill="currentcolor" />
+                        ) : (
+                          <Play size={19} fill="currentcolor" />
+                        )}
+                      </button>
+                    </div>
+
+                    <div className="mt-4 flex items-start justify-between gap-1">
+                      <div className="min-w-0">
+                        <h3 className=" truncate font-semibold">
+                          {track.title}
+                        </h3>
+                        <p className="mt-1 truncate text-sm text-gray-400">
+                          {track.artist}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => toggleFavorite(track.id)}
+                        aria-label={
+                          favorties.includes(track.id)
+                            ? `Remove from favorites`
+                            : `Add to favorites`
+                        }
+                        className=" shrink-0 p-1 text-gray-400 transition hover:text-pink-700"
+                      >
+                        <Heart size={19}
+                          fill={
+                            favorties.includes(track.id)
+                              ? 'currentColor'
+                              : 'none'
+                          }
+                          className={
+                            favorties.includes(track.id)
+                              ? 'text-pink-400'
+                              : ' '
+                          } />
+                      </button>
+                    </div>
+                    <p className="mt-3 text-xs text-violet-300">
+                      {track.category}
+                    </p>
+                  </article>
                 ))}
               </div>
             )}
           </section>
         </main>
       </div>
+
+      {/* Persistent player bar */}
+      <footer className="fixed  inset-x-0 bottom-0 z-20 border-t border-white/10 bg-[#111019]/95 px-4 py-4 backdrop-blur-xl md:px-8">
+        <div className="mx-auto flex max-w-screen-2xl items-center justify-between gap-4">
+          <div className="flex min-w-0 flex-1 items-center gap-3 md:max-w-xs">
+            <img
+              src={currenttrack.cover}
+              alt=""
+              className="h-12 w-12 rounded-lg object-cover"
+            />
+            <div className="min-w-0">
+              <p className=" truncate text-sm font-semibold">
+                {currenttrack.title}
+              </p>
+              <p className=" truncate text-shadow-xs text-gray-400">
+                {currenttrack.artist}
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
