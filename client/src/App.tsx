@@ -383,14 +383,7 @@ function App() {
             </div>
           </div>
 
-          <div className=" hidden flex-1 items-center justify-end gap-3 md:flex">
-            <MoreHorizontal size={20}
-              className=" text-gray-400" />
-            <Volume2 size={19}
-              className=" text-gray-400" />
-            <div className=" h-1 w-20 rounded-full bg-violet-400" />
-          </div>
-        </div>
+         
       </footer>
     </div>
   )
