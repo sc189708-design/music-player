@@ -159,7 +159,7 @@ function App() {
             </p>
           </div>
 
-          <div className="mt-auto mb-17 rounded-2xl border border-violet-400/20 bg-violet-500/10 p-4">
+          <div className="mt-auto mb-25 rounded-2xl border border-violet-400/20 bg-violet-500/10 p-4">
             <AudioLines className="mb-3 text-violet-400 " size={24} />
             <p className="font-semibold">Your sound. Your world</p>
             <p className="text-sm mt-2 leading-5 text-gray-500">Discover your favorite track</p>
@@ -382,8 +382,14 @@ function App() {
               <span className="text[10px] text-gray-300">0:00</span>
             </div>
           </div>
-
-         
+          <div className=" hidden flex-1 items-center justify-end gap-3 md:flex">
+            <MoreHorizontal size={20}
+              className=" text-gray-400" />
+            <Volume2 size={19}
+              className=" text-gray-400" />
+            <div className=" h-1 w-20 rounded-full bg-violet-400" />
+          </div>
+        </div>
       </footer>
     </div>
   )
